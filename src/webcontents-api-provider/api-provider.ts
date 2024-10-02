@@ -13,7 +13,9 @@ ipcMain.on('BRIDGE-INVOKE', (event, msg) => {
 	const args = msg.args;
 	const callback = callbacks[callbackName] as (...args: unknown[]) => unknown;
 
-	callback.call(null, ...args);
+	const result = callback.call(null, ...args);
+
+	event.returnValue = result;
 });
 
 function invoke(apiKey: string, method: string, ...args: unknown[]): unknown {
@@ -25,7 +27,7 @@ function invoke(apiKey: string, method: string, ...args: unknown[]): unknown {
 		if (isDispachedCallback(arg)) {
 			const name = arg.dispatchedCallbackName;
 			args[index] = (...args: unknown[]) => {
-				window.ApiProviderBridge.invoke(name, args);
+				return window.ApiProviderBridge.invoke(name, args);
 			}
 		}
 	})

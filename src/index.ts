@@ -8,6 +8,11 @@ const greetCallback = (greet: string) => {
 	console.log(greet);
 }
 
+const greetCallbackReturn = (greet: string): string => {
+	console.log(greet);
+    return greet + greet;
+}
+
 async function startApp(): Promise<void> {
 	const window = await createWindow('app/worker-client/index.html');
 
@@ -21,6 +26,7 @@ async function startApp(): Promise<void> {
 	const concatTest = await apiProvider.concat('test', 9);
 	const stringOutTest = await apiProvider.stringOut();
 	apiProvider.cbTest(greetCallback);
+    apiProvider.cbTestR(greetCallbackReturn);
 
 	console.log('stub');
 }
