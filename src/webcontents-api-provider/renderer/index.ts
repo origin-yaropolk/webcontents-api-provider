@@ -1,0 +1,1 @@
+export { exposeBridge } from '../bridge';

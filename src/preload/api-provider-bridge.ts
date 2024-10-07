@@ -1,3 +1,3 @@
-import { exposeApiProviderBridgeInternal } from "../webcontents-api-provider/api-provider-bridge";
+import { exposeBridge } from "../webcontents-api-provider/renderer";
 
-exposeApiProviderBridgeInternal();
+exposeBridge();

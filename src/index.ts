@@ -1,8 +1,8 @@
 import { app, BrowserWindow } from "electron";
 import { exposeWebApi, WebApi } from "./web-api";
-import { ApiProviderProxyHandler } from "./webcontents-api-provider/api-provider";
 
 import { join as pathJoin } from 'path';
+import { createApiProvider } from "./webcontents-api-provider/main";
 
 const greetCallback = (greet: string) => {
 	console.log(greet);
@@ -15,16 +15,17 @@ const greetCallbackReturn = (greet: string): string => {
 
 async function startApp(): Promise<void> {
 	const window = await createWindow('app/worker-client/index.html');
+    // window.webContents.openDevTools({mode: 'detach'});
 
 	exposeWebApi(window.webContents);
 
-	const apiProvider = ApiProviderProxyHandler.createApiProvider<WebApi>(window.webContents, 'WebApi');
+	const apiProvider = createApiProvider<WebApi>(window.webContents, 'WebApi');
 
-	const addTest1 = await apiProvider.add(8, 9);
-	const addTest2 = await apiProvider.add(9, 17);
-	const objectAddTest = await apiProvider.objectAdd({a: 4}, 4);
-	const concatTest = await apiProvider.concat('test', 9);
-	const stringOutTest = await apiProvider.stringOut();
+	// const addTest1 = await apiProvider.add(8, 9);
+	// const addTest2 = await apiProvider.add(9, 17);
+	// const objectAddTest = await apiProvider.objectAdd({a: 4}, 4);
+	// const concatTest = await apiProvider.concat('test', 9);
+	// const stringOutTest = await apiProvider.stringOut();
 	apiProvider.cbTest(greetCallback);
     apiProvider.cbTestR(greetCallbackReturn);
 

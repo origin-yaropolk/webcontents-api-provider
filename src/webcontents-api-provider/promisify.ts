@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 /* eslint-disable no-multi-spaces, @typescript-eslint/no-unused-vars, @typescript-eslint/no-unnecessary-type-constraint */
 type Method<P extends unknown[], R extends unknown = unknown> = (...args: P) => R;
 type PromisifyedMethod<P extends unknown[], R extends unknown = unknown> = Method<P, Promise<R>>;
